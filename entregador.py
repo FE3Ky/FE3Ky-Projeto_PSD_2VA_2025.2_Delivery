@@ -4,6 +4,7 @@ import time
 
 broker = "broker.hivemq.com"
 
+
 def on_message(client, userdata, msg):
     pedido = json.loads(msg.payload.decode())
     pedido_id = pedido["id"]
@@ -16,6 +17,7 @@ def on_message(client, userdata, msg):
     time.sleep(2)
     client.publish(f"delivery/pedidos/{pedido_id}/status", "pronto", qos=0)
     print("Status: pronto")
+
 
 client = mqtt.Client()
 client.connect(broker, 1883, 60)
